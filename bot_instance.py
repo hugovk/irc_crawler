@@ -26,10 +26,10 @@ class bot_instance:
     def stop_bot(self):
         now_time = time.strftime("%Y-%m-%d-%H%M", time.localtime(time.time()))
         print(f'[{now_time}]writing {self.channel}..')
-        
+
         target_dir = os.path.join('result', self.channel)
-        file = open(os.path.join(target_dir, f'{now_time}.tsv'), "w", encoding='utf-8')
-        file.writelines(self.buf)
+        with open(os.path.join(target_dir, f'{now_time}.tsv'), "w", encoding='utf-8') as f:
+            f.writelines(self.buf)
         self.buf.clear()
 
     def start_bot(self):
