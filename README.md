@@ -1,2 +1,2 @@
-# irc_crawler
-crawling by irc
+# Proto1-irc
+irc bot for twich
