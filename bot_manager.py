@@ -5,9 +5,10 @@ from bot_instance import bot_instance
 # from flask import Flask, request
 import requests
 import json
-import webhook
+# import webhook
 import threading
 from time import sleep
+import os
 
 
 # app = Flask(__name__)
@@ -36,6 +37,9 @@ channels = ["hanryang1125", "yapyap30", "handongsuk", "saddummy", "lol_ambition"
 
 for i in channels:
     bots.append(bot_instance(i))
+    target_dir = os.path.join('result', i)
+    if not os.path.exists(target_dir):
+        os.makedirs(target_dir)
 
 for i in bots:
     i.start_bot()
@@ -44,7 +48,7 @@ def push_buf():
     for i in bots:
         i.stop_bot()
     
-threading.Timer(60*60*24, push_buf).start()
+threading.Timer(60*60*12, push_buf).start()
 
 # class streamChangeCallback(Resource):
 #     def get(self):

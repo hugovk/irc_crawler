@@ -2,8 +2,9 @@ import twitch
 import logging
 import twitch.helix as helix
 import twitch.chat as chat
-import webhook
+# import webhook
 import time
+import os
 
 class bot_instance:
     def __init__(self, channel):#api:webhook.api):
@@ -20,11 +21,15 @@ class bot_instance:
         self.buf = []
             
     def handle_message(self, message: twitch.chat.Message) -> None:
-        self.buf.append(message.sender + "\t" + ":" + "\t" + message.text + "\n")
+        self.buf.append(f'{message.sender}\t{message.text}\n')
 
     def stop_bot(self):
-        file = open(self.channel+ time.strftime('%Y-%m-%d', time.localtime(time.time())) +".txt", "w", encoding='utf-8')
-        file.write(''.join(self.buf))
+        now_time = time.strftime("%Y-%m-%d-%H%M", time.localtime(time.time()))
+        print(f'[{now_time}]writing {self.channel}..')
+        
+        target_dir = os.path.join('result', self.channel)
+        file = open(os.path.join(target_dir, f'{now_time}.tsv'), "w", encoding='utf-8')
+        file.writelines(self.buf)
         self.buf.clear()
 
     def start_bot(self):
