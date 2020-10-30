@@ -26,6 +26,9 @@ class bot_instance:
         self.buf.append(f'[{now_time}] <{message.sender}> {message.text}\n')
 
     def stop_bot(self):
+        if not self.buf:
+            return
+
         now_time = time.strftime("%Y-%m-%d-%H%M", time.localtime(time.time()))
         print(f'[{now_time}]writing {self.channel}..')
 
