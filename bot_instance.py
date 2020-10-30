@@ -22,7 +22,7 @@ class bot_instance:
             
     def handle_message(self, message: twitch.chat.Message) -> None:
         # "[{timestamp[relative]}] <{commenter[display_name]}> {message[body]}",
-        now_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
+        now_time = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(time.time()))
         self.buf.append(f'[{now_time}] <{message.sender}> {message.text}\n')
 
     def stop_bot(self):
