@@ -32,8 +32,8 @@ for i in bots:
 
 def push_buf():
     for i in bots:
-        i.stop_bot()    
-    threading.Timer(60*60*8, push_buf).start()
+        i.stop_bot()
+    threading.Timer(60, push_buf).start()
 
 push_buf()
 
